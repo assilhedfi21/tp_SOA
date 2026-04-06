@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test CORS</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+    h2   { color: #4fc3f7; }
+    pre  { background: #2d2d2d; padding: 15px; border-radius: 6px; overflow: auto; }
+    .ok  { color: #81c784; }
+    .err { color: #e57373; }
+  </style>
+</head>
+<body>
+  <h2>🔍 Test CORS — API Personnes</h2>
+  <p>Résultat dans la console ET ci-dessous :</p>
+  <pre id="output">Chargement...</pre>
+
+  <script>
+    fetch('http://localhost:3000/personnes')
+      .then(response => {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(data => {
+        console.log('✅ CORS OK :', data);
+        document.getElementById('output').className = 'ok';
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        console.error('❌ Erreur CORS :', error);
+        document.getElementById('output').className = 'err';
+        document.getElementById('output').textContent = 'Erreur : ' + error.message;
+      });
+  </script>
+</body>
+</html>

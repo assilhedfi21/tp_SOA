@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: API Personnes
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /personnes:
+    get:
+      summary: Lister toutes les personnes
+      responses:
+        "200":
+          description: Liste retournée avec succès
+    post:
+      summary: Créer une nouvelle personne
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                adresse:
+                  type: string
+      responses:
+        "201":
+          description: Personne créée
+  /personnes/{id}:
+    get:
+      summary: Lire une personne par ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Personne trouvée
+    put:
+      summary: Modifier une personne
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                adresse:
+                  type: string
+      responses:
+        "200":
+          description: Mise à jour effectuée
+    delete:
+      summary: Supprimer une personne
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Suppression effectuée
